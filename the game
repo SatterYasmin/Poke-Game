@@ -1,0 +1,280 @@
+print('POKEMON TOP TRUMPS! \n   and type duel!')
+print('_________________')
+
+
+import random
+
+your_card_number = random.randint(1, 150)
+computers_card_number = random.randint(1, 150)
+
+import requests
+
+#your card randomiser
+url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(your_card_number)
+response = requests.get(url)
+pokemon = response.json()
+
+your_weight = pokemon['weight'] / 10
+your_height = pokemon['height'] / 10
+
+# your card information print
+print('Your card:')
+print('NAME: ' + pokemon['name'])
+print('ID: ' + str(pokemon['id']))
+
+type_1 = pokemon['types'][0]['type']['name']
+if len(pokemon['types']) == 1:
+    print('TYPE: ' + type_1 )
+elif len(pokemon['types']) == 2:
+    type_2 = pokemon['types'][1]['type']['name']
+    print('TYPE: ' + type_1 + ' and ' + type_2)
+
+
+print('WEIGHT: ' + str(your_weight) + ' kg')
+print('HEIGHT: ' + str(your_height) + ' m')
+
+# your_ability_name_1 = pokemon['abilities'][0]['ability']['name']
+# your_ability_name_2 = pokemon['abilities'][1]['ability']['name']
+# your_ability_name_3 = pokemon['abilities'][2]['ability']['name']
+
+# if your_ability_name_1 == (pokemon['abilities']):
+
+print('_________________')
+
+chosen_stat = input('Which stat would you like to use? ')
+print('_________________')
+#computer card randomiser
+url = 'https://pokeapi.co/api/v2/pokemon/{}/'.format(computers_card_number)
+
+response = requests.get(url)
+pokemon = response.json()
+
+computer_weight = pokemon['weight'] / 10
+computer_height = pokemon['height'] / 10
+
+#computer card information print
+print("Opponent's card:")
+print('NAME: ' + pokemon['name'])
+print('ID: ' + str(pokemon['id']))
+
+type_3 = pokemon['types'][0]['type']['name']
+if len(pokemon['types']) == 1:
+    print('TYPE: ' + type_3 )
+elif len(pokemon['types']) == 2:
+    type_4 = pokemon['types'][1]['type']['name']
+    print('TYPE: ' + type_3 + ' and ' + type_4)
+
+print('WEIGHT: ' + str(computer_weight) + ' kg')
+print('HEIGHT: ' + str(computer_height) + ' m')
+
+print('_________________')
+
+#top trumps gameplay
+stat_option = ['WEIGHT', 'HEIGHT']
+if chosen_stat.upper() in stat_option:
+    print('Good choice,')
+
+    if chosen_stat.upper() == 'WEIGHT':
+        print('You have chosen WEIGHT!')
+        print(f'You weigh {your_weight} kg, and your opponent weighs {computer_weight} kg...')
+        if your_weight > computer_weight:
+            print('You win! You are heavier than your opponent!')
+        elif your_weight < computer_weight:
+            print('You lose! You are lighter than your opponent!')
+        elif your_weight == computer_weight:
+            print("It's a tie!")
+
+    elif chosen_stat.upper() == 'HEIGHT':
+        print('You have chosen HEIGHT!')
+        print(f'You are {your_height} m tall, and your opponent is {computer_height} m tall...')
+        if your_height > computer_height:
+            print('You win! You are taller than your opponent!')
+        elif your_height < computer_height:
+            print('You lose! You are shorter than your opponent!')
+        elif your_height == computer_height:
+            print("It's a tie!")
+else:
+    print('That is not an option, sorry!')
+
+print('__________________')
+
+print('TIME TO DUEL!')
+poke_type = ['normal', 'fire', 'water',
+             'electric', 'grass', 'ice',
+             'fighting', 'poison', 'ground',
+             'flying', 'psychic', 'bug',
+             'rock', 'ghost', 'dragon'
+             'dark', 'steel', 'fairy']
+choice_type = input('What type are you? If two, pick one:').lower()
+if choice_type == type_1:
+    print('{}(you) vs {}(computer)... who will win?'.format(choice_type, type_3 ))
+elif choice_type == type_2:
+    print('{}(you) vs {}(computer)... who will win?'.format(choice_type, type_3 ))
+elif choice_type != type_1 :
+    print('That is not a choice!')
+
+fire_weak = poke_type[4 or 5 or 11 or 16]
+if choice_type == 'fire' and type_3 == fire_weak:
+    print(f'Fire beats {type_3}! You win!')
+elif type_3 == 'fire' and choice_type == fire_weak:
+    print(f'Fire beats {choice_type}! Opponent wins!')
+elif choice_type == 'fire' and type_3 != fire_weak:
+    print('No winner')
+elif type_3 == 'fire' and choice_type != fire_weak:
+    print('No winner')
+
+water_weak = poke_type[1 or 8 or 12]
+if choice_type == 'water' and type_3 == water_weak:
+    print(f'Water beats {type_3}! You win!')
+elif type_3 == 'water' and choice_type == water_weak:
+    print(f'Water beats {choice_type}! Opponent wins!')
+elif choice_type == 'water' and type_3 != water_weak:
+    print('No winner')
+elif type_3 == 'water' and choice_type != water_weak:
+    print('No winner')
+
+electric_weak = poke_type[2 or 6]
+if choice_type == 'electric' and type_3 == electric_weak:
+    print(f'Electric beats {type_3}! You win!')
+elif type_3 == 'electric' and choice_type == electric_weak:
+    print(f'Electric beats {choice_type}! Opponent wins!')
+elif choice_type == 'electric' and type_3 != electric_weak:
+    print('No winner')
+elif type_3 == 'electric' and choice_type != electric_weak:
+    print('No winner')
+
+grass_weak = poke_type[2 or 8 or 12]
+if choice_type == 'grass' and type_3 == grass_weak:
+    print(f'Grass beats {type_3}! You win!')
+elif type_3 == 'grass' and choice_type == grass_weak:
+    print(f'Grass beats {choice_type}! Opponent wins!')
+elif choice_type == 'grass' and type_3 != grass_weak:
+    print('No winner')
+elif type_3 == 'grass' and choice_type != grass_weak:
+    print('No winner')
+
+ice_weak = poke_type[4 or 8 or 9 or 14]
+if choice_type == 'ice' and type_3 == ice_weak:
+    print(f'Ice beats {type_3}! You win!')
+elif type_3 == 'ice' and choice_type == ice_weak:
+    print(f'ice beats {choice_type}! Opponent wins!')
+elif choice_type == 'ice' and type_3 != ice_weak:
+    print('No winner')
+elif type_3 == 'ice' and choice_type != ice_weak:
+    print('No winner')
+
+fighting_weak = poke_type[0 or 5 or 12 or 15 or 16]
+if choice_type == 'fighting' and type_3 == fighting_weak:
+    print(f'Fighting beats {type_3}! You win!')
+elif type_3 == 'fighting' and choice_type == fighting_weak:
+    print(f'Fighting beats {choice_type}! Opponent wins!')
+elif choice_type == 'fighting' and type_3 != fighting_weak:
+    print('No winner')
+elif type_3 == 'fighting' and choice_type != fighting_weak:
+    print('No winner')
+
+poison_weak = poke_type[4 or 11 or 17]
+if choice_type == 'poison' and type_3 == poison_weak:
+    print(f'Poison beats {type_3}! You win!')
+elif type_3 == 'poison' and choice_type == poison_weak:
+    print(f'Poison beats {choice_type}! Opponent wins!')
+elif choice_type == 'poison' and type_3 != poison_weak:
+    print('No winner')
+elif type_3 == 'poison' and choice_type != poison_weak:
+    print('No winner')
+
+ground_weak = poke_type[1 or 3 or 7 or 12 or 16]
+if choice_type == 'ground' and type_3 == ground_weak:
+    print(f'Ground beats {type_3}! You win!')
+elif type_3 == 'ground' and choice_type == ground_weak:
+    print(f'Ground beats {choice_type}! Opponent wins!')
+elif choice_type == 'ground' and type_3 != ground_weak:
+    print('No winner')
+elif type_3 == 'ground' and choice_type != ground_weak:
+    print('No winner')
+
+flying_weak = poke_type[4 or 6 or 11]
+if choice_type == 'flying' and flying_weak:
+    print(f'Flying beats {type_3}! You win!')
+elif type_3 == 'flying' and flying_weak:
+    print(f'Flying beats {choice_type}! Opponent wins!')
+elif choice_type == 'flying' and flying_weak:
+    print('No winner')
+elif type_3 == 'flying' and flying_weak:
+    print('No winner')
+
+psychic_weak = poke_type[6 or 7]
+if choice_type == 'psychic' and type_3 == psychic_weak:
+    print(f'Psychic beats {type_3}! You win!')
+elif type_3 == 'psychic' and choice_type == psychic_weak:
+    print(f'Psychic beats {choice_type}! Opponent wins!')
+elif choice_type == 'psychic' and type_3 != psychic_weak:
+    print('No winner')
+elif type_3 == 'psychic' and choice_type != psychic_weak:
+    print('No winner')
+
+bug_weak = poke_type[4 or 7 or 10 or 15]
+if choice_type == 'bug' and type_3 == bug_weak:
+    print(f'Bug beats {type_3}! You win!')
+elif type_3 == 'bug' and choice_type == bug_weak:
+    print(f'Bug beats {choice_type}! Opponent wins!')
+elif choice_type == 'bug' and type_3 != bug_weak:
+    print('No winner')
+elif type_3 == 'bug' and choice_type != bug_weak:
+    print('No winner')
+
+rock_weak = poke_type[1 or 5 or 9 or 11]
+if choice_type == 'rock' and type_3 == rock_weak:
+    print(f'Rock beats {type_3}! You win!')
+elif type_3 == 'rock' and choice_type == rock_weak:
+    print(f'Rock beats {choice_type}! Opponent wins!')
+elif choice_type == 'rock' and type_3 != rock_weak:
+    print('No winner')
+elif type_3 == 'rock' and choice_type != rock_weak:
+    print('No winner')
+
+ghost_weak = poke_type[13]
+if choice_type == 'ghost' and type_3 == ghost_weak:
+    print(f'Ghost beats {type_3}! You both win!')
+elif choice_type == 'ghost' and type_3 != ghost_weak:
+    print('No winner')
+elif type_3 == 'ghost' and choice_type != ghost_weak:
+    print('No winner')
+
+dragon_weak = poke_type[14]
+if choice_type == 'dragon' and type_3 == dragon_weak:
+    print(f'Dragon beats {type_3}! You both win!')
+elif choice_type == 'dragon' and type_3 != dragon_weak:
+    print('No winner')
+elif type_3 == 'dragon' and choice_type != dragon_weak:
+    print('No winner')
+
+dark_weak = poke_type[10 or 13]
+if choice_type == 'dark' and type_3 == dark_weak:
+    print(f'Dark beats {type_3}! You win!')
+elif type_3 == 'dark' and choice_type == dark_weak:
+    print(f'Dark beats {choice_type}! Opponent wins!')
+elif choice_type == 'dark' and type_3 != dark_weak:
+    print('No winner')
+elif type_3 == 'dark' and choice_type != dark_weak:
+    print('No winner')
+
+steel_weak = poke_type[5 or 12 or 17]
+if choice_type == 'steel' and type_3 == steel_weak:
+    print(f'Steel beats {type_3}! You win!')
+elif type_3 == 'steel' and choice_type == steel_weak:
+    print(f'Steel beats {choice_type}! Opponent wins!')
+elif choice_type == 'steel' and type_3 != steel_weak:
+    print('No winner')
+elif type_3 == 'steel' and choice_type != steel_weak:
+    print('No winner')
+
+fairy_weak = poke_type[6 or 14 or 15]
+if choice_type == 'fairy' and type_3 == fairy_weak:
+    print(f'Fairy beats {type_3}! You win!')
+elif type_3 == 'fairy' and choice_type == fairy_weak:
+    print(f'Fairy beats {choice_type}! Opponent wins!')
+elif choice_type == 'fairy' and type_3 != fairy_weak:
+    print('No winner')
+elif type_3 == 'fairy' and choice_type != fairy_weak:
+    print('No winner')
